@@ -8,10 +8,18 @@ class PokemonsController < ApplicationController
 
   def damage
     pkmn = Pokemon.find(params[:id])
-    pkmn.hp -= 10
-    pkmn.save
-    if (pkmn.hp <= 0)
-      pkmn.destroy
+    if pkmn.hp > 0
+      pkmn.hp -= 10
+      pkmn.save
+    end
+    redirect_to trainer_path(id: pkmn.trainer_id)
+  end
+
+  def heal
+    pkmn = Pokemon.find(params[:id])
+    if pkmn.hp < 100
+      pkmn.hp += 10
+      pkmn.save
     end
     redirect_to trainer_path(id: pkmn.trainer_id)
   end
