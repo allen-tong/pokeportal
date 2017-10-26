@@ -8,9 +8,12 @@ class PokemonsController < ApplicationController
 
   def damage
     pkmn = Pokemon.find(params[:id])
+    attacker = Pokemon.find(params[:attack][:attacker_id])
     if pkmn.hp > 0
       pkmn.hp -= 10
       pkmn.save
+      attacker.level += 1
+      attacker.save
     end
     redirect_to trainer_path(id: pkmn.trainer_id)
   end

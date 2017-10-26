@@ -8,7 +8,11 @@
   <% if @trainer == current_trainer or pkmn.hp > 0 %>
     <p><%= pkmn.name %>, Lv. <%= pkmn.level %> - HP: <%=pkmn.hp %></p>
     <% if @trainer != current_trainer %>
-      <%= button_to "Damage!", damage_path(id: pkmn.id), :class => "button medium", :method => :patch %>
+      <%= form_for :attack, url: damage_path(id: pkmn.id, attacker_id: :attacker_id), :method => :patch do |f| %>
+        <%= f.label :attacker, "Attacking Pokemon" %>
+        <%= f.select :attacker_id, @current.pokemon.map { |pokemon| [pokemon.name, pokemon.id] } %>
+        <%= f.submit "Attack!" %>
+      <% end %>
     <% elsif pkmn.hp < 100 %>
       <%= button_to "Heal!", heal_path(id: pkmn.id), :class => "button medium", :method => :patch %>
     <% end %>
