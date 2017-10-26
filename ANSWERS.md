@@ -21,3 +21,4 @@ This is fun!
 The class was really confusing in the beginning, what with weird Ruby syntax and being thrown headfirst into MVCs, but there's probably not much that can be done about that other than just constant exposure. The most frustrating part of this class has probably been getting used to Ruby/Rails magic, so I think it would have been nice to slow down a bit in the beginning and maybe keep a running list of methods seen/used in the class so far and a table of pluralization rules and things Rails does automatically. A crash course on how to debug would be nice too. Aside from that, the lectures and assignments have been great (although unfriendly to Windows users :c rip) and I feel like I've learned a lot. Keep up the good work, A++ :)
 
 # Extra credit: Link your Heroku deployed app
+https://allen-pokeportal.herokuapp.com/
