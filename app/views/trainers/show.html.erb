@@ -1,18 +1,19 @@
 <h3>Trainer</h3>
-<p>Name: <%= @trainer.name if @trainer.name %></p>
-<p>Email: <%= @trainer.email if @trainer.email %></p>
-</br>
+<p>
+  Name: <%= @trainer.name if @trainer.name %></br>
+  Email: <%= @trainer.email if @trainer.email %>
+</p>
 
 <h4>Pokemon:</h4>
 <% @trainer.pokemon.each do |pkmn| %>
   <% if @trainer == current_trainer or pkmn.hp > 0 %>
-    <p><%= pkmn.name %>, Lv. <%= pkmn.level %> - HP: <%=pkmn.hp %></p>
+    <%= pkmn.name %>, Lv. <%= pkmn.level %> - HP: <%=pkmn.hp %></br>
     <% if @trainer != current_trainer %>
       <%= form_for :attack, url: damage_path(id: pkmn.id, attacker_id: :attacker_id), :method => :patch do |f| %>
         <%= f.label :attacker, "Attacking Pokemon" %>
         <%= f.select :attacker_id, @current.pokemon.map { |pokemon| [pokemon.name, pokemon.id] } %>
         <%= f.submit "Attack!" %>
-      <% end %>
+      <% end %></br>
     <% elsif pkmn.hp < 100 %>
       <%= button_to "Heal!", heal_path(id: pkmn.id), :class => "button medium", :method => :patch %>
     <% end %>
@@ -23,3 +24,5 @@
 <% if @trainer == current_trainer %>
   <%= button_to "Create new Pokemon", new_path, :class => "button medium", :method => :get %>
 <% end %>
+
+<%= link_to "Back to Trainers", '/trainers' %>
