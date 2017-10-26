@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :trainers
+  devise_for :trainers, :controllers => { registrations: 'registrations' }
   root to: "home#index"
   resources :trainers
   patch '/capture', to: 'pokemons#capture', as: 'capture'
