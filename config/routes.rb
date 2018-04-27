@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/new', to: 'pokemons#new', as: 'new'
   post '/create', to: 'pokemons#create', as: 'create'
   patch '/heal', to: 'pokemons#heal', as: 'heal'
+  delete '/release', to: 'pokemons#release', as: 'release'
 end

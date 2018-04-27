@@ -9,13 +9,18 @@
   <% if @trainer == current_trainer or pkmn.hp > 0 %>
     <%= pkmn.name %>, Lv. <%= pkmn.level %> - HP: <%=pkmn.hp %></br>
     <% if @trainer != current_trainer %>
-      <%= form_for :attack, url: damage_path(id: pkmn.id, attacker_id: :attacker_id), :method => :patch do |f| %>
-        <%= f.label :attacker, "Attacking Pokemon" %>
-        <%= f.select :attacker_id, @current.pokemon.map { |pokemon| [pokemon.name, pokemon.id] } %>
-        <%= f.submit "Attack!" %>
-      <% end %></br>
-    <% elsif pkmn.hp < 100 %>
-      <%= button_to "Heal!", heal_path(id: pkmn.id), :class => "button medium", :method => :patch %>
+      <% if current_trainer.pokemon.length() > 0 %>
+        <%= form_for :attack, url: damage_path(id: pkmn.id, attacker_id: :attacker_id), :method => :patch do |f| %>
+          <%= f.label :attacker, "Attacking Pokemon" %>
+          <%= f.select :attacker_id, @current.pokemon.map { |pokemon| [pokemon.name, pokemon.id] if pokemon.hp > 0 } .compact %>
+          <%= f.submit "Attack!" %>
+        <% end %></br>
+      <% end %>
+    <% else %>
+      <% if pkmn.hp < pkmn.level * 4 %>
+        <%= button_to "Heal!", heal_path(id: pkmn.id), :class => "button medium", :method => :patch %>
+      <% end %>
+      <%= button_to "Release :(", release_path(id: pkmn.id), :class => "button medium", :method => :delete %>
     <% end %>
   <% end %>
 <% end %>
